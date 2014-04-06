@@ -3,12 +3,12 @@
   <div class="small-12 medium-8 columns">
     <h3>Employees</h3>
 
-    <table>
+    <table width="100%">
       <tr>
         <th>Name</th>
         <th>Email</th>
         <th>Position</th>
-        <th>Type</th>
+        <th colspan="2">Type</th>
       </tr>
 
       <% @employees.each do |employee| %>
@@ -17,6 +17,7 @@
           <td><%= employee.email %></td>
           <td><%= employee.position.name %></td>
           <td><%= employee.work_type %></td>
+          <td><%= link_to 'Remove', '#' %></td>
         </tr>
       <% end %>
     </table>
@@ -38,7 +39,7 @@
       </div>
 
       <div class="small-8 medium-4 columns">
-        <%= f.input :position, collection: @positions %>
+        <%= f.association :position, include_blank: false %>
       </div>
       <div class="small-8 columns">
         <%= f.input :work_type, collection: ['FT', 'PT'], as: :radio_buttons %>
@@ -50,15 +51,15 @@
   <div class="small-12 medium-4 columns">
     <h3>Positions</h3>
 
-      <table>
+      <table width="100%">
         <tr>
-          <th>Position Name</th>
+          <th colspan="2">Position Name</th>
         </tr>
 
         <% @positions.each do |position| %>
           <tr>
             <td><%= position.name %></td>
-            <td><%= link_to 'Remove', '#' %></td>
+            <td><%= link_to 'Remove', position_path(position), method: :delete %></td>
           </tr>
         <% end %>
       </table>
