@@ -4,4 +4,7 @@ Dialgus::Application.routes.draw do
 
   resources :positions, only: [:index, :create, :show, :destroy]
   resources :employees, only: [:index, :create]
+  resources :schedules, only: [:index, :show, :create]
+
+  get 'schedules/week/:sunday', to: 'schedules#week', as: :schedule_week
 end

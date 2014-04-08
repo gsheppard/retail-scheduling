@@ -1,0 +1,61 @@
+<p>Schedules for week of <%= @sunday %></p>
+
+<table>
+  <tr>
+    <th>Employee</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+  </tr>
+
+  <% @schedules.each do |schedule| %>
+    <tr>
+      <td><%= schedule.employee.first_name %></td>
+      <td><%= schedule.start_time %></td>
+      <td><%= schedule.end_time %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+  <% @emp_schedules.each do |emp, sched| %>
+    <div class="row">
+      <div class="small-2 columns">
+        <%= emp.first_name %>
+      </div>
+
+      <div class="small-7 columns">
+        <% 7.times do |x| %>
+          <div class="small-1 columns">
+            <div class="small-6 columns">
+              start
+            </div>
+            <div class="small-6 columns">
+              end
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Total Hours -->
+      <div class="small-1 columns">
+        <p>Total</p>
+      </div>
+    </div>
+  <% end %>
+
+<%= simple_form_for @schedule do |f| %>
+  <div class="row">
+    <div class="small-6 columns">
+      <div class="small-4 columns">
+        <%= f.association :employee, collection: @employees, label_method: :first_name %>
+        <%= f.button :submit, 'Add Shift' %>
+      </div>
+      <div class="small-4 columns">
+        <%= f.input :start_time %>
+      </div>
+      <div class="small-4 columns">
+        <%= f.input :end_time %>
+      </div>
+    </div>
+  </div>
+<% end %>

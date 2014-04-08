@@ -1,0 +1,25 @@
+<p>Schedules for week of <%= @sunday %></p>
+
+<table>
+  <tr>
+    <th>Employee</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+  </tr>
+
+  <% @schedules.each do |schedule| %>
+    <tr>
+      <td><%= schedule.employee.first_name %></td>
+      <td><%= schedule.start_time %></td>
+      <td><%= schedule.end_time %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+<%= simple_form_for @schedule do |f| %>
+  <%= f.association :employee, collection: @employees, label_method: :first_name %>
+  <%= f.input :start_time %>
+  <%= f.input :end_time %>
+  <%= f.button :submit, 'Add Shift' %>
+<% end %>
