@@ -7,4 +7,5 @@ Dialgus::Application.routes.draw do
   resources :schedules, only: [:index, :show, :create]
 
   get 'schedules/week/:sunday', to: 'schedules#week', as: :schedule_week
+  post 'schedules/week/:sunday', to: 'schedules#week_create', as: :new_schedule_week
 end

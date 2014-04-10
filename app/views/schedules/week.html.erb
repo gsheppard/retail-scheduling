@@ -1,5 +1,6 @@
 <p>Schedules for week of <%= @sunday %></p>
 
+<!-- Basic Schedules Table -->
 <table>
   <tr>
     <th>Employee</th>
@@ -17,32 +18,47 @@
 
 </table>
 
-  <% @emp_schedules.each do |emp, sched| %>
+<!-- Schedule Form -->
+<%= simple_form_for :schedules, class: 'schedules' do |f| %>
+  <% @shifts.each do |employee, shifts| %>
     <div class="row">
-      <div class="small-2 columns">
-        <%= emp.first_name %>
+      <div class="small-1 columns">
+        <%= employee.first_name %>
       </div>
 
-      <div class="small-7 columns">
-        <% 7.times do |x| %>
-          <div class="small-1 columns">
-            <div class="small-6 columns">
-              start
-            </div>
-            <div class="small-6 columns">
-              end
-            </div>
-          </div>
+      <div class="small-12 columns">
+        <%= f.simple_fields_for "employee_#{employee.id}" do |ff| %>
+          <% shifts.each do |shift| %>
+            <%= ff.simple_fields_for "shift_#{shift.id}", shift do |s| %>
+              <div class="small-2 columns">
+                <%= s.input :start_time %>
+              </div>
+              <div class="small-2 columns">
+                <%= s.input :end_time %>
+              </div>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
 
-      <!-- Total Hours -->
       <div class="small-1 columns">
-        <p>Total</p>
+        Total
       </div>
+
     </div>
   <% end %>
 
+  <%= f.button :submit, 'Save' %>
+<% end %>
+
+
+<%= simple_form_for :create_schedules do |f| %>
+  <%= f.input :weeks, collection: @upcoming_weeks %>
+  <%= f.button :submit, 'Create New Week' %>
+<% end %>
+
+
+<!--
 <%= simple_form_for @schedule do |f| %>
   <div class="row">
     <div class="small-6 columns">
@@ -59,3 +75,4 @@
     </div>
   </div>
 <% end %>
+ -->
