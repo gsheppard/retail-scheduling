@@ -1,0 +1,19 @@
+<h3>Available Schedules</h3>
+
+<% if @weeks.empty? %>
+
+  <p>You have no schedules made.</p>
+  <p>Get started by creating a new schedule!</p>
+
+<% else %>
+  <% @weeks.each do |week| %>
+    <p><%= link_to week.week_start.strftime("%b %d, %Y"), edit_week_path(week) %></p>
+  <% end %>
+<% end %>
+
+
+<%= simple_form_for @week do |f| %>
+  <%= f.input :week_start, collection: @upcoming.map! {|d| d.strftime("%b %d, %Y")} %>
+
+  <%= f.button :submit, 'Create' %>
+<% end %>

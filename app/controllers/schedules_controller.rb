@@ -1,6 +1,5 @@
 class SchedulesController < ApplicationController
   def index
-
   end
 
   def show
@@ -50,7 +49,6 @@ class SchedulesController < ApplicationController
           )
       end
     end
-    binding.pry
 
   end
 
